@@ -63,7 +63,7 @@ if uploaded_file is not None:
 
 # 4. 헤더(Header)
 st.title("신규 화합물 MoA 및 세포독성 우선순위 대시보드")
-st.caption("Smiles 김하은, 손삼주 | 최종 프로젝트) 2024.05.14")
+st.caption("Smiles 김하은, 손삼주 | 최종 프로젝트 2024.05.14")
 
 # 5. 탭(Tabs)
 tab1, tab2, tab3, tab4, tab5 = st.tabs([

@@ -15,7 +15,7 @@ MODEL_DIR = BASE / "model"
 @st.cache_data(show_spinner="학습 데이터 로딩 중...")
 def load_train_data():
     file_name = "train_features.csv"
-    full_path = DATA_PATH / file_name
+    full_path = DATA / file_name
     # 디버깅: 파일이 존재하지 않을 시, 시도한 경로 화면에 출력
     if not full_path.exists():
         st.error(f"파일을 찾을 수 없습니다. 시도한 경로: {full_path}")

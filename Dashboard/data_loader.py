@@ -4,7 +4,8 @@ import pandas as pd
 from pathlib import Path
 from helpers import assign_reliability_grade
 
-BASE = Path(__file__).parent.parent   # Dashboard/ 의 부모 = 1차] MoA 데이터/
+current_file_path = Path(__file__).resolve()  # Dashboard/ 의 부모 = 1차] MoA 데이터/
+BASE = current_file_path.parent.parent   
 DATA = BASE / "data"
 MODEL_DIR = BASE / "model"
 

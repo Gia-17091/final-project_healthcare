@@ -35,7 +35,7 @@ def train_moa_model():
         ("clf",    MultiOutputClassifier(
             LogisticRegression(C=0.05, max_iter=200, solver="saga",
                                random_state=42, n_jobs=1),
-            n_jobs=-1,
+            n_jobs=1,
         )),
     ])
     pipe.fit(X, y)

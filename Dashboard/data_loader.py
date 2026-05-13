@@ -14,16 +14,15 @@ MODEL_DIR = BASE / "model"
  # @st.cache_data 데코레이터로 캐싱하여 성능 최적화 수행.
 @st.cache_data(show_spinner="학습 데이터 로딩 중...")
 def load_train_data():
- feat, tgt, drug = None, None, None
- 
- # 데이터 로드
-    full_path = DATA / file_name
- 
-    if not full_path.exists():
-        feat = DATA / "train_features.csv"
+    # 초기값 설정 (정의되지 않음 에러 방지)
+    feat, tgt, drug = None, None, None
+    
+    # train_features.csv 로드
+    feat_path = DATA / "train_features.csv"
+    if feat_path.exists():
+        feat = pd.read_csv(feat_path)
     else:
-        st.error(f"파일을 찾을 수 없습니다. 시도한 경로: {full_path}")
-     
+        st.error(f"파일을 찾을 수 없습니다: {feat_path}")
     # tgt, drug 정의.    
     tgt_path = DATA / "train_targets_scored.csv"
     if tgt_path.exists():

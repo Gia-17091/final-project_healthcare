@@ -14,30 +14,38 @@ MODEL_DIR = BASE / "model"
  # @st.cache_data 데코레이터로 캐싱하여 성능 최적화 수행.
 @st.cache_data(show_spinner="학습 데이터 로딩 중...")
 def load_train_data():
-    file_name = "train_features.csv"
+ feat, tgt, drug = None, None, None
+ 
+ # 데이터 로드
     full_path = DATA / file_name
  
     if not full_path.exists():
+        feat = DATA / "train_features.csv"
+    else:
         st.error(f"파일을 찾을 수 없습니다. 시도한 경로: {full_path}")
-        raise FileNotFoundError(f"경로 확인: {full_path}")
      
-    feat = pd.read_csv(full_path)
     # tgt, drug 정의.    
-    try:
-        tgt = pd.read_csv(DATA / "train_targets_scored.csv") 
-        drug = pd.read_csv(DATA / "train_drug.csv")       
-    except:
-        tgt = None
-        drug = None
-    
-    # 이제 feat, tgt, drug 세 개 모두 존재하므로 NameError가 나지 않습니다.
-    return feat, tgt, drug
+    tgt_path = DATA / "train_targets_scored.csv"
+    if tgt_path.exists():
+        tgt = pd.read_csv(tgt_path)
+   
+    drug_path = DATA / "train_drug.csv"
+    if drug_path.exists():
+        drug = pd.read_csv(drug_path)
 
+    feat = feat if feat is not None else pd.DataFrame()
+    tgt = tgt if tgt is not None else pd.DataFrame()
+    drug = drug if drug is not None else pd.DataFrame()
+
+    return feat, tgt, drug
 
 @st.cache_data(show_spinner="매핑 파일 로딩 중...")
 def load_mappings():
-    gene = pd.read_csv(DATA / "gene_name.csv")
-    cell = pd.read_csv(DATA / "cell_info.csv")
+    gene_path = DATA / "g_to_symbol_final.csv"
+    cell_path = DATA / "c_to_cell_final.csv"
+    
+    gene = pd.read_csv(gene_path) if gene_path.exists() else pd.DataFrame()
+    cell = pd.read_csv(cell_path) if cell_path.exists() else pd.DataFrame()
     return gene, cell
 
 

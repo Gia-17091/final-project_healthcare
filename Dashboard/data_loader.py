@@ -20,17 +20,15 @@ def load_train_data():
     # train_features.csv 로드
     feat_path = DATA / "train_features.csv"
     if feat_path.exists():
-        feat = pd.read_csv(feat_path)
-    else:
-        st.error(f"파일을 찾을 수 없습니다: {feat_path}")
-    # tgt, drug 정의.    
+        feat = pd.read_csv(feat_path, nrows=1000)  # 핵심: 1000줄만 읽기!
+        
     tgt_path = DATA / "train_targets_scored.csv"
     if tgt_path.exists():
-        tgt = pd.read_csv(tgt_path)
-   
+        tgt = pd.read_csv(tgt_path, nrows=1000)
+        
     drug_path = DATA / "train_drug.csv"
     if drug_path.exists():
-        drug = pd.read_csv(drug_path)
+        drug = pd.read_csv(drug_path, nrows=1000)
 
     feat = feat if feat is not None else pd.DataFrame()
     tgt = tgt if tgt is not None else pd.DataFrame()

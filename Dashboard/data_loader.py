@@ -16,15 +16,21 @@ MODEL_DIR = BASE / "model"
 def load_train_data():
     file_name = "train_features.csv"
     full_path = DATA / file_name
-    # 디버깅: 파일이 존재하지 않을 시, 시도한 경로 화면에 출력
+ 
     if not full_path.exists():
         st.error(f"파일을 찾을 수 없습니다. 시도한 경로: {full_path}")
-        # 혹시 몰라 상위 폴더의 파일 목록을 출력해봅니다.
-        if DATA_PATH.exists():
-            st.write(f"data 폴더 내 파일 목록: {list(DATA_PATH.glob('*'))}")
-        else:
-            st.write(f"data 폴더 자체가 존재하지 않습니다. 루트 목록: {list(BASE_DIR.glob('*'))}")
-        raise FileNotFoundError(f"경로를 확인하세요: {full_path}")
+        raise FileNotFoundError(f"경로 확인: {full_path}")
+     
+    feat = pd.read_csv(full_path)
+    # tgt, drug 정의.    
+    try:
+        tgt = pd.read_csv(DATA / "train_targets_scored.csv") 
+        drug = pd.read_csv(DATA / "train_drug.csv")       
+    except:
+        tgt = None
+        drug = None
+    
+    # 이제 feat, tgt, drug 세 개 모두 존재하므로 NameError가 나지 않습니다.
     return feat, tgt, drug
 
 

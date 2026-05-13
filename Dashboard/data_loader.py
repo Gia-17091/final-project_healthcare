@@ -15,24 +15,14 @@ MODEL_DIR = BASE / "Model"
 def load_train_data():
     try:
         # 파일이 실제로 존재하는지 확인하고 읽어옵니다.
-        feat_path = DATA / "train_features.csv"
-        tgt_path = DATA / "train_targets_scored.csv"
-        drug_path = DATA / "train_drug.csv"
-        
-        feat = pd.read_csv(feat_path)
-        tgt  = pd.read_csv(tgt_path)
-        drug = pd.read_csv(drug_path)
-        
+        feat = pd.read_csv(DATA / "train_features.csv")
+        tgt  = pd.read_csv(DATA / "train_targets_scored.csv")
+        drug = pd.read_csv(DATA / "train_drug.csv")
         return feat, tgt, drug
     except FileNotFoundError as e:
         st.error(f"데이터 파일을 찾을 수 없습니다: {e}")
-        # 에러 발생 시 앱이 멈추지 않도록 빈 데이터프레임이라도 반환하거나 중단 처리
         st.stop()
-    feat = pd.read_csv(DATA / "train_features.csv")
-    tgt  = pd.read_csv(DATA / "train_targets_scored.csv")
-    drug = pd.read_csv(DATA / "train_drug.csv")
-    return feat, tgt, drug
-
+        
 @st.cache_data(show_spinner="매핑 파일 로딩 중...")
 def load_mappings():
     gene = pd.read_csv(DATA / "gene_name.csv")

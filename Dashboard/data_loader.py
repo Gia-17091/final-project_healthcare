@@ -7,7 +7,7 @@ from helpers import assign_reliability_grade
 current_file_path = Path(__file__).resolve()  # Dashboard/ 의 부모 = 1차] MoA 데이터/
 BASE = current_file_path.parent.parent   
 DATA = BASE / "data"
-MODEL_DIR = BASE / "model"
+MODEL_DIR = BASE / "Model"
 
 # 2. 데이터 로딩 함수
  # 캐싱된 데이터 로딩 함수: 학습 데이터, 매핑 파일, 신뢰도 테이블

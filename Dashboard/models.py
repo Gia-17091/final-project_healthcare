@@ -8,12 +8,6 @@ from sklearn.multioutput import MultiOutputClassifier
 from sklearn.pipeline import Pipeline
 from data_loader import load_train_data
 
-# models.py 상단
-from pathlib import Path
-
-BASE_PATH = Path(__file__).resolve().parent.parent
-MODEL_DIR = BASE_PATH / "model"
-
 # 2. 모델 학습 함수 — @st.cache_resource 적용
  # 1) MoA 예측 모델: g-feature → 206개 MoA 확률
 @st.cache_resource(show_spinner="MoA 예측 모델 학습 중...")

@@ -4,10 +4,9 @@ import pandas as pd
 from pathlib import Path
 from helpers import assign_reliability_grade
 
-current_file_path = Path(__file__).resolve()  # Dashboard/ 의 부모 = 1차] MoA 데이터/
-BASE = current_file_path.parent.parent   
+BASE = Path(__file__).parent.parent   # Dashboard/ 의 부모 = 1차] MoA 데이터/
 DATA = BASE / "data"
-MODEL_DIR = BASE / "model"
+MODEL_DIR = BASE / "Model"
 
 # 2. 데이터 로딩 함수
  # 캐싱된 데이터 로딩 함수: 학습 데이터, 매핑 파일, 신뢰도 테이블
@@ -29,7 +28,10 @@ def load_train_data():
         st.error(f"데이터 파일을 찾을 수 없습니다: {e}")
         # 에러 발생 시 앱이 멈추지 않도록 빈 데이터프레임이라도 반환하거나 중단 처리
         st.stop()
-
+    feat = pd.read_csv(DATA / "train_features.csv")
+    tgt  = pd.read_csv(DATA / "train_targets_scored.csv")
+    drug = pd.read_csv(DATA / "train_drug.csv")
+    return feat, tgt, drug
 
 @st.cache_data(show_spinner="매핑 파일 로딩 중...")
 def load_mappings():
